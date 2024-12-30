@@ -1,61 +1,106 @@
+/* إعدادات الجسم */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #333;
+    font-family: "Cairo", sans-serif;
+    background-color: #e8f5e9;
+    text-align: center;
+    color: #333;
     margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .calculator {
-    background-color: #000;
-    border-radius: 15px;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* الحاوية */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    width: 300px;
-  }
-  
-  .display {
-    width: 100%;
-    height: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* عنوان اللعبة */
+h1.title {
+    color: #2e7d32;
+    animation: bounceIn 1s;
+}
+
+/* زر */
+button {
+    background-color: #2e7d32;
+    color: white;
     border: none;
-    background: #222;
-    color: #fff;
-    font-size: 1.5rem;
-    text-align: right;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-  }
-  
-  .buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-  
-  .btn {
-    background: #444;
-    border: none;
-    color: #fff;
-    padding: 15px;
-    font-size: 1.2rem;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
-  }
-  
-  .btn:hover {
-    background: #666;
-    transform: scale(1.1);
-  }
-  
-  .number {
-    color: #00f; /* الأرقام باللون الأزرق */
-  }
-  
-  .btn:active {
-    transform: scale(0.95);
-  }
-  
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1b5e20;
+}
+
+/* إخفاء العناصر */
+.hidden {
+    display: none;
+}
+
+/* مربع المعلومات */
+.info {
+    margin-bottom: 20px;
+    font-size: 18px;
+    background: #f1f8e9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* الخيارات */
+#options button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    background: #66bb6a;
+    font-size: 16px;
+    animation: fadeInUp 0.5s;
+}
+
+#options button:hover {
+    background: #43a047;
+}
+
+/* الحركات */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceIn {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    to {
+        transform: scale(1);
+    }
+}
