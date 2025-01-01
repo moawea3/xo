@@ -1,37 +1,23 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة الأسئلة</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لعبة كود توصيل الإيموجي مع الكلمة</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">لعبة الأسئلة 🧠</h1>
-        <div id="start-screen" class="animated fadeIn">
-            <input type="text" id="player-name" placeholder="ادخل اسمك هنا">
-            <button onclick="startGame()">ابدأ اللعبة</button>
-        </div>
-        <div id="quiz-screen" class="hidden">
-            <div class="info animated fadeIn">
-                <p>اللاعب: <span id="name-display"></span></p>
-                <p>النقاط: <span id="score">0</span></p>
-                <p>الوقت المتبقي: <span id="timer">20</span> ثانية</p>
-            </div>
-            <div id="question-container" class="animated fadeIn">
-                <h2 id="question"></h2>
-                <div id="options" class="animated fadeInUp"></div>
-            </div>
-            <button onclick="nextQuestion()" id="next-btn" class="hidden animated fadeIn">السؤال التالي ➡</button>
-        </div>
-        <div id="end-screen" class="hidden">
-            <h2 class="animated bounceIn">انتهت اللعبة 🎉</h2>
-            <p>اللاعب: <span id="final-name"></span></p>
-            <p>النقاط النهائية: <span id="final-score"></span></p>
-            <button onclick="restartGame()">العب مرة أخرى</button>
-        </div>
+  <div class="game-container">
+    <div class="timer" id="timer">60</div>
+    <div class="emoji-container" id="emoji-container">
+      <!-- الإيموجي هنا -->
     </div>
-    <script src="script.js"></script>
+    <div class="word-container" id="word-container">
+      <!-- الكلمات هنا -->
+    </div>
+    <button id="start-btn">ابدأ اللعبة</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,106 +1,106 @@
-// الأسئلة المختلفة
-const allQuestions = [
-    { question: "ما هي عاصمة الجزائر؟", options: ["الجزائر", "وهران", "قسنطينة", "عنابة"], correct: 0 },
-    { question: "ما هو الكوكب الذي يسمى بالكوكب الأحمر؟", options: ["المريخ", "عطارد", "الزهرة", "الأرض"], correct: 0 },
-    { question: "من هو مكتشف قانون الجاذبية؟", options: ["نيوتن", "أينشتاين", "غاليلو", "كوبرنيكوس"], correct: 0 },
-    { question: "كم عدد ألوان قوس قزح؟", options: ["7", "6", "8", "9"], correct: 0 },
-    { question: "ما هي أكبر قارة في العالم؟", options: ["آسيا", "أفريقيا", "أوروبا", "أمريكا الجنوبية"], correct: 0 },
-    { question: "في أي سنة بدأت الحرب العالمية الثانية؟", options: ["1939", "1941", "1914", "1945"], correct: 0 },
-    { question: "كم عدد أضلاع المثلث؟", options: ["3", "4", "5", "6"], correct: 0 },
-    { question: "ما هو العنصر الكيميائي الذي يرمز له بـO؟", options: ["الأكسجين", "الهيدروجين", "الحديد", "النيتروجين"], correct: 0 },
-    { question: "كم دقيقة في الساعة؟", options: ["60", "50", "45", "30"], correct: 0 },
-    { question: "ما هو الحيوان الذي يُطلق عليه ملك الغابة؟", options: ["الأسد", "النمر", "الفيل", "الدب"], correct: 0 },
-];
+// script.js
 
-let selectedQuestions = [];
-let playerName = "";
-let score = 0;
-let currentQuestionIndex = 0;
-let timer;
-let timeLeft = 20;
+let emojis = ["🍎", "🍌", "🍉", "🍓", "🍍", "🍔", "🍕", "🍟", "🍦", "🍩"];
+let words = ["تفاحة", "موز", "بطيخ", "توت", "أناناس", "برجر", "بيتزا", "بطاطس", "آيس كريم", "دونات"];
+let timer = 60;
+let gameTimer;
+let emojiContainer = document.getElementById("emoji-container");
+let wordContainer = document.getElementById("word-container");
+let startBtn = document.getElementById("start-btn");
+let timerDisplay = document.getElementById("timer");
+let matchedPairs = 0;
+
+// وظيفة لبدء اللعبة
+startBtn.addEventListener("click", startGame);
 
 function startGame() {
-    playerName = document.getElementById("player-name").value;
-    if (!playerName) {
-        alert("الرجاء إدخال اسمك!");
-        return;
-    }
-
-    // اختيار 5 أسئلة عشوائية
-    selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
-
-    document.getElementById("start-screen").classList.add("hidden");
-    document.getElementById("quiz-screen").classList.remove("hidden");
-    document.getElementById("name-display").textContent = playerName;
-
-    loadQuestion();
-    startTimer();
+  // إعادة تعيين اللعبة
+  matchedPairs = 0;
+  timer = 60;
+  timerDisplay.textContent = timer;
+  emojiContainer.innerHTML = '';
+  wordContainer.innerHTML = '';
+  startBtn.disabled = true;
+  
+  // خلط الإيموجي والكلمات
+  shuffle(emojis);
+  shuffle(words);
+  
+  // إنشاء الإيموجي
+  emojis.forEach((emoji, index) => {
+    let emojiElement = document.createElement("div");
+    emojiElement.classList.add("emoji");
+    emojiElement.textContent = emoji;
+    emojiElement.setAttribute("draggable", true);
+    emojiElement.setAttribute("data-index", index);
+    emojiElement.addEventListener("dragstart", dragStart);
+    emojiContainer.appendChild(emojiElement);
+  });
+  
+  // إنشاء الكلمات
+  words.forEach((word, index) => {
+    let wordElement = document.createElement("div");
+    wordElement.classList.add("word");
+    wordElement.textContent = word;
+    wordElement.setAttribute("data-index", index);
+    wordElement.addEventListener("dragover", dragOver);
+    wordElement.addEventListener("drop", drop);
+    wordContainer.appendChild(wordElement);
+  });
+  
+  // بدء المؤقت
+  gameTimer = setInterval(countdown, 1000);
 }
 
-function loadQuestion() {
-    const questionData = selectedQuestions[currentQuestionIndex];
-    document.getElementById("question").textContent = questionData.question;
-    const optionsContainer = document.getElementById("options");
-    optionsContainer.innerHTML = "";
-
-    questionData.options.forEach((option, index) => {
-        const button = document.createElement("button");
-        button.textContent = option;
-        button.onclick = () => checkAnswer(index);
-        optionsContainer.appendChild(button);
-    });
-
-    document.getElementById("next-btn").classList.add("hidden");
-    timeLeft = 20;
+// عد تنازلي للمؤقت
+function countdown() {
+  if (timer > 0) {
+    timer--;
+    timerDisplay.textContent = timer;
+  } else {
+    clearInterval(gameTimer);
+    alert("لقد انتهى الوقت! خسرت اللعبة.");
+    startBtn.disabled = false;
+  }
 }
 
-function checkAnswer(selected) {
-    const questionData = selectedQuestions[currentQuestionIndex];
-
-    if (selected === questionData.correct) {
-        score += 3;
-        alert("إجابة صحيحة! ✔");
-    } else {
-        alert("إجابة خاطئة! ❌");
-    }
-
-    document.getElementById("score").textContent = score;
-    document.getElementById("next-btn").classList.remove("hidden");
-    clearInterval(timer);
+// دالة لتغيير ترتيب العناصر
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
 
-function nextQuestion() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < selectedQuestions.length) {
-        loadQuestion();
-        startTimer();
-    } else {
-        endGame();
-    }
+// دالة لسحب الإيموجي
+function dragStart(event) {
+  event.dataTransfer.setData("text", event.target.dataset.index);
 }
 
-function startTimer() {
-    timer = setInterval(() => {
-        timeLeft--;
-        document.getElementById("timer").textContent = timeLeft;
-
-        if (timeLeft === 0) {
-            clearInterval(timer);
-            alert("انتهى الوقت! ⏰");
-            document.getElementById("next-btn").classList.remove("hidden");
-        }
-    }, 1000);
+// دالة للسحب إلى الكلمة
+function dragOver(event) {
+  event.preventDefault();
 }
 
-function endGame() {
-    clearInterval(timer);
-    document.getElementById("quiz-screen").classList.add("hidden");
-    document.getElementById("end-screen").classList.remove("hidden");
+// دالة لوضع الإيموجي على الكلمة
+function drop(event) {
+  let emojiIndex = event.dataTransfer.getData("text");
+  let wordIndex = event.target.dataset.index;
 
-    document.getElementById("final-name").textContent = playerName;
-    document.getElementById("final-score").textContent = score;
-}
-
-function restartGame() {
-    location.reload();
+  if (emojis[emojiIndex] === words[wordIndex]) {
+    // إضافة الكلاس "matched" لتغيير اللون وترتيب العناصر
+    event.target.textContent = words[wordIndex];
+    let emojiElement = document.querySelector(.emoji[data-index='${emojiIndex}']);
+    emojiElement.classList.add("matched");
+    event.target.classList.add("matched");
+    emojiElement.textContent = emojis[emojiIndex];
+    emojiElement.style.marginBottom = "5px";  // التباعد بين الإيموجي والكلمة
+    
+    matchedPairs++;
+    if (matchedPairs === 10) {
+      clearInterval(gameTimer);
+      alert("لقد فزت! اللعبة انتهت.");
+      startBtn.disabled = false;
+    }
+  }
 }

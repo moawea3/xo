@@ -1,106 +1,72 @@
-/* إعدادات الجسم */
+/* style.css */
+
+/* إعدادات عامة */
 body {
-    font-family: "Cairo", sans-serif;
-    background-color: #e8f5e9;
-    text-align: center;
-    color: #333;
+    font-family: Arial, sans-serif;
+    background-color: #ff0000; /* اللون الأحمر */
+    color: white;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-}
-
-/* الحاوية */
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-/* عنوان اللعبة */
-h1.title {
-    color: #2e7d32;
-    animation: bounceIn 1s;
-}
-
-/* زر */
-button {
-    background-color: #2e7d32;
-    color: white;
-    border: none;
-    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .game-container {
+    text-align: center;
+  }
+  
+  .timer {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  
+  /* تصميم الحاويات */
+  .emoji-container,
+  .word-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    flex-wrap: wrap; /* يسمح بلف العناصر في أسطر متعددة */
+  }
+  
+  .emoji,
+  .word {
+    font-size: 50px;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #1b5e20;
-}
-
-/* إخفاء العناصر */
-.hidden {
-    display: none;
-}
-
-/* مربع المعلومات */
-.info {
-    margin-bottom: 20px;
+    user-select: none;
+    margin: 10px; /* إضافة مسافة بين العناصر */
+  }
+  
+  /* الزر */
+  button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
     font-size: 18px;
-    background: #f1f8e9;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* الخيارات */
-#options button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    background: #66bb6a;
-    font-size: 16px;
-    animation: fadeInUp 0.5s;
-}
-
-#options button:hover {
-    background: #43a047;
-}
-
-/* الحركات */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes bounceIn {
-    from {
-        opacity: 0;
-        transform: scale(0.3);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    to {
-        transform: scale(1);
-    }
-}
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+  /* تنسيق الإيموجي والكلمات بعد الربط */
+  .matched {
+    background-color: #28a745; /* اللون الأخضر */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .matched .emoji {
+    margin-bottom: 5px;
+  }
+  
